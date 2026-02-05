@@ -4,7 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import oficina.fibrasnaturais.DTOs.loginDTO.LoginRequestDTO;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +27,16 @@ public class User {
     private String password;
     private String phone;
 
-    @Enumerated(EnumType.STRING)
-    private oficina.fibrasnaturais.enums.Role role;
+    @ManyToMany
+    @JoinTable(name = "tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+
+    public Boolean isLoginCorrect(LoginRequestDTO loginRequestDTO, PasswordEncoder password){
+        return password.matches(loginRequestDTO.password(),this.password);
+    }
+
+
 }
