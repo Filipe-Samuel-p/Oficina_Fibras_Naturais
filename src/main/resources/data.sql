@@ -9,3 +9,4 @@ INSERT INTO tb_user(id,name,email,password,phone) VALUES ('9f4216bb-ccf8-4fad-a3
                                                         '22998581484');
 
 INSERT INTO tb_user_role(user_id,role_id) VALUES ('9f4216bb-ccf8-4fad-a30a-dc100855bbcc', '1');
+INSERT INTO tb_user_role(user_id,role_id) VALUES ('9f4216bb-ccf8-4fad-a30a-dc100855bbcc', '2');

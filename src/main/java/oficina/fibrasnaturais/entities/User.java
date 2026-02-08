@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import oficina.fibrasnaturais.DTOs.loginDTO.LoginRequestDTO;
+import oficina.fibrasnaturais.DTOs.login.LoginRequestDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;

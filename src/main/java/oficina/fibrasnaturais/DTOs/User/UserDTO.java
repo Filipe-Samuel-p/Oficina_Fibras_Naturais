@@ -1,6 +1,7 @@
 package oficina.fibrasnaturais.DTOs.User;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,10 @@ public class UserDTO {
     private UUID id;
     private String name;
     private String email;
+
+    @JsonIgnore
     private String password;
+
     private String phone;
 
     public UserDTO(User entity){

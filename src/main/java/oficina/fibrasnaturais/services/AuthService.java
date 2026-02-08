@@ -1,8 +1,8 @@
 package oficina.fibrasnaturais.services;
 
 import oficina.fibrasnaturais.DTOs.User.UserDTO;
-import oficina.fibrasnaturais.DTOs.loginDTO.LoginRequestDTO;
-import oficina.fibrasnaturais.DTOs.loginDTO.LoginResponseDTO;
+import oficina.fibrasnaturais.DTOs.login.LoginRequestDTO;
+import oficina.fibrasnaturais.DTOs.login.LoginResponseDTO;
 import oficina.fibrasnaturais.entities.User;
 import oficina.fibrasnaturais.enums.RoleName;
 import oficina.fibrasnaturais.repositories.RoleRepository;

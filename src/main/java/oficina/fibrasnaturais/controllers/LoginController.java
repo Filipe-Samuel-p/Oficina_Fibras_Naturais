@@ -1,8 +1,8 @@
 package oficina.fibrasnaturais.controllers;
 
 import oficina.fibrasnaturais.DTOs.User.UserDTO;
-import oficina.fibrasnaturais.DTOs.loginDTO.LoginRequestDTO;
-import oficina.fibrasnaturais.DTOs.loginDTO.LoginResponseDTO;
+import oficina.fibrasnaturais.DTOs.login.LoginRequestDTO;
+import oficina.fibrasnaturais.DTOs.login.LoginResponseDTO;
 import oficina.fibrasnaturais.services.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
