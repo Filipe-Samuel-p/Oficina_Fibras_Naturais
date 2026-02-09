@@ -27,12 +27,14 @@ public class User {
     private String password;
     private String phone;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Address address;
+
     @ManyToMany
     @JoinTable(name = "tb_user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
 
     public Boolean isLoginCorrect(LoginRequestDTO loginRequestDTO, PasswordEncoder password){
         return password.matches(loginRequestDTO.password(),this.password);

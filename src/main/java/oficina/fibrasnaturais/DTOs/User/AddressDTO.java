@@ -13,7 +13,6 @@ import oficina.fibrasnaturais.entities.User;
 public class AddressDTO {
 
     private Long id;
-    private UserDTO user;
     private String street;
     private String zipCode;
     private String city;
@@ -24,7 +23,6 @@ public class AddressDTO {
     public AddressDTO(Address entity) {
         zipCode = entity.getZipCode();
         id = entity.getId();
-        user = new UserDTO(entity.getUser());
         street = entity.getStreet();
         city = entity.getCity();
         neighborhood = entity.getNeighborhood();

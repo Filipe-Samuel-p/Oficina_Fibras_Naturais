@@ -25,7 +25,6 @@ public class UserController {
     @GetMapping
     @PreAuthorize("hasAllRoles('CLIENT')")
     public ResponseEntity<UserDTO> getUserProfile (JwtAuthenticationToken token){
-
         var userDTO = service.getUserProfile(token);
         return ResponseEntity.ok(userDTO);
     }
@@ -37,5 +36,12 @@ public class UserController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PatchMapping("/address")
+    @PreAuthorize("hasAllRoles('CLIENT')")
+    public ResponseEntity<AddressDTO> updateAddress (@RequestBody AddressDTO dto, JwtAuthenticationToken token){
+        AddressDTO updatedDto = service.updateAddress(dto, token);
+        return ResponseEntity.ok(updatedDto);
     }
 }
