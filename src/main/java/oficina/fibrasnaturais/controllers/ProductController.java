@@ -50,5 +50,12 @@ public class ProductController {
         dto = service.updateProduct(dto,productID);
         return ResponseEntity.ok(dto);
     }
+
+    @DeleteMapping(value = "/{productID}")
+    @PreAuthorize("hasAllRoles('ADMIN')")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long productID){
+        service.deleteProduct(productID);
+        return ResponseEntity.noContent().build();
+    }
 }
 

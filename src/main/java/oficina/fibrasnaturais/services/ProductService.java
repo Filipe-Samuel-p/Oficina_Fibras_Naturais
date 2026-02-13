@@ -6,6 +6,7 @@ import oficina.fibrasnaturais.entities.Address;
 import oficina.fibrasnaturais.entities.Product;
 import oficina.fibrasnaturais.exceptions.ResourceNotFoundException;
 import oficina.fibrasnaturais.repositories.ProductRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -74,6 +75,27 @@ public class ProductService {
 
         return new ProductDTO(updatedProduct);
 
+
+    }
+
+    /*FUNÇAO DE ATUALIZAR IMAGEM */
+
+
+
+
+    public void deleteProduct (Long productID){
+
+        boolean productExist = repository.existsById(productID);
+        if(!productExist){
+            throw new ResourceNotFoundException("Produto não encontrado");
+        }
+
+        try{
+            repository.deleteById(productID);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("Falha de integridade referencial");
+        }
 
     }
 
