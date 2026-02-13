@@ -1,29 +1,34 @@
 package oficina.fibrasnaturais.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tb_product")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     private String name;
-    private String description;
-    private BigDecimal price;
-    private Integer stockQuantity;
-    private String imageUrl;
-    private Boolean active;
 
+    private String description;
+
+    private BigDecimal price;
+
+    private Integer stockQuantity;
+
+    private String imageUrl;
+
+    private Boolean active;
 }

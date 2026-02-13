@@ -1,4 +1,4 @@
-package oficina.fibrasnaturais.DTOs.erros;
+package oficina.fibrasnaturais.DTOs.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
