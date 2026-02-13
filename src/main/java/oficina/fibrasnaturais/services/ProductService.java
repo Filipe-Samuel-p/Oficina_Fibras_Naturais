@@ -66,10 +66,6 @@ public class ProductService {
             product.setStockQuantity(dto.getStockQuantity());
         }
 
-        if (dto.getImageUrl() != null) {
-            product.setImageUrl(dto.getImageUrl());
-        }
-
         if (dto.getActive() != null) {
             product.setActive(dto.getActive());
         }
