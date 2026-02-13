@@ -2,7 +2,7 @@ package oficina.fibrasnaturais.exceptions.handler;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import oficina.fibrasnaturais.DTOs.erros.CustomErrorDTO;
+import oficina.fibrasnaturais.DTOs.error.CustomErrorDTO;
 import oficina.fibrasnaturais.exceptions.BadCredentialsException;
 import oficina.fibrasnaturais.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;

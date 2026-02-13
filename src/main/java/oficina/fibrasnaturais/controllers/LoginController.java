@@ -1,6 +1,6 @@
 package oficina.fibrasnaturais.controllers;
 
-import oficina.fibrasnaturais.DTOs.User.UserDTO;
+import oficina.fibrasnaturais.DTOs.user.UserDTO;
 import oficina.fibrasnaturais.DTOs.login.LoginRequestDTO;
 import oficina.fibrasnaturais.DTOs.login.LoginResponseDTO;
 import oficina.fibrasnaturais.services.AuthService;

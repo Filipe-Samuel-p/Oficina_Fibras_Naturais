@@ -1,11 +1,10 @@
-package oficina.fibrasnaturais.DTOs.User;
+package oficina.fibrasnaturais.DTOs.user;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import oficina.fibrasnaturais.entities.Address;
-import oficina.fibrasnaturais.entities.User;
 
 @Getter
 @NoArgsConstructor

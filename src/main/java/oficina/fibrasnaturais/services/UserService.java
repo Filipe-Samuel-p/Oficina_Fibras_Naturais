@@ -1,7 +1,7 @@
 package oficina.fibrasnaturais.services;
 
-import oficina.fibrasnaturais.DTOs.User.AddressDTO;
-import oficina.fibrasnaturais.DTOs.User.UserDTO;
+import oficina.fibrasnaturais.DTOs.user.AddressDTO;
+import oficina.fibrasnaturais.DTOs.user.UserDTO;
 import oficina.fibrasnaturais.entities.Address;
 import oficina.fibrasnaturais.exceptions.ResourceNotFoundException;
 import oficina.fibrasnaturais.repositories.AddressRepository;

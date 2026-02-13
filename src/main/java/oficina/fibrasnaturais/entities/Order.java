@@ -1,38 +1,44 @@
 package oficina.fibrasnaturais.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import oficina.fibrasnaturais.enums.OrderStatus;
 import oficina.fibrasnaturais.id.NanoId;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_order")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuppressWarnings("deprecation")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Order {
 
-    @EqualsAndHashCode.Include
     @Id
     @NanoId
     @Column(length = 10)
+    @EqualsAndHashCode.Include
     private String id;
 
     private Instant creationDate;
 
     @Enumerated(EnumType.STRING)
-    private oficina.fibrasnaturais.enums.OrderStatus status;
+    private OrderStatus status;
 
     private BigDecimal totalValue;
+
+    @Column(name = "address_snapshot", columnDefinition = "TEXT")
+    private String addressSnapshot;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> items = new ArrayList<>();
 }

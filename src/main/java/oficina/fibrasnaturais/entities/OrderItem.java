@@ -1,22 +1,21 @@
 package oficina.fibrasnaturais.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_order_item")
-@Data
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @ManyToOne
@@ -28,6 +27,7 @@ public class OrderItem {
     private Product product;
 
     private Integer quantity;
-    private BigDecimal unitPrice;
 
+    private BigDecimal price;
 }
+

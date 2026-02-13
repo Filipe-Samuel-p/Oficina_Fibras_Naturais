@@ -1,8 +1,8 @@
 package oficina.fibrasnaturais.controllers;
 
 
-import oficina.fibrasnaturais.DTOs.User.AddressDTO;
-import oficina.fibrasnaturais.DTOs.User.UserDTO;
+import oficina.fibrasnaturais.DTOs.user.AddressDTO;
+import oficina.fibrasnaturais.DTOs.user.UserDTO;
 import oficina.fibrasnaturais.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

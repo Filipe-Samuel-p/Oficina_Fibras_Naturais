@@ -1,4 +1,4 @@
-package oficina.fibrasnaturais.DTOs.User;
+package oficina.fibrasnaturais.DTOs.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
