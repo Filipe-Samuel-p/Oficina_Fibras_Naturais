@@ -35,7 +35,7 @@ public class ProductController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAllRoles('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COODINATOR')")
     public ResponseEntity<ProductDTO> createProduct (@RequestBody ProductDTO dto){
         dto = service.createProduct(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -44,7 +44,7 @@ public class ProductController {
     }
 
     @PutMapping(value = "/{productID}")
-    @PreAuthorize("hasAllRoles('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COODINATOR')")
     public ResponseEntity<ProductDTO> updateProduct (@RequestBody ProductDTO dto, @PathVariable Long productID){
 
         dto = service.updateProduct(dto,productID);
@@ -52,7 +52,7 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "/{productID}")
-    @PreAuthorize("hasAllRoles('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COODINATOR')")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long productID){
         service.deleteProduct(productID);
         return ResponseEntity.noContent().build();

@@ -59,8 +59,8 @@ public class ProductService {
             product.setDescription(dto.getDescription());
         }
 
-        if (dto.getPrice() != null) {
-            product.setPrice(dto.getPrice());
+        if (dto.getPricePerUnit() != null) {
+            product.setPricePerUnit(dto.getPricePerUnit());
         }
 
         if (dto.getStockQuantity() != null) {
@@ -102,7 +102,7 @@ public class ProductService {
     private void dtoProductToEntity(ProductDTO dto, Product entity){
        entity.setName(dto.getName());
        entity.setDescription(dto.getDescription());
-       entity.setPrice(dto.getPrice());
+       entity.setPricePerUnit(dto.getPricePerUnit());
        entity.setImageUrl(dto.getImageUrl());
        entity.setStockQuantity(dto.getStockQuantity());
        entity.setActive(dto.getActive());

@@ -4,6 +4,7 @@ package oficina.fibrasnaturais.exceptions.handler;
 import jakarta.servlet.http.HttpServletRequest;
 import oficina.fibrasnaturais.DTOs.error.CustomErrorDTO;
 import oficina.fibrasnaturais.exceptions.BadCredentialsException;
+import oficina.fibrasnaturais.exceptions.ConflictException;
 import oficina.fibrasnaturais.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,14 @@ public class ControllerExceptionHandler {
     public ResponseEntity<CustomErrorDTO> badCredentials(BadCredentialsException e, HttpServletRequest request) {
         var httpStatus = HttpStatus.UNAUTHORIZED;
         var customError = new CustomErrorDTO(Instant.now(), httpStatus.value(), e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(httpStatus).body(customError);
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<CustomErrorDTO> conflictException(ConflictException exception, HttpServletRequest request){
+        var httpStatus = HttpStatus.CONFLICT;
+        var customError = new CustomErrorDTO(Instant.now(),httpStatus.value(),
+                exception.getMessage(),request.getRequestURI());
         return ResponseEntity.status(httpStatus).body(customError);
     }
 

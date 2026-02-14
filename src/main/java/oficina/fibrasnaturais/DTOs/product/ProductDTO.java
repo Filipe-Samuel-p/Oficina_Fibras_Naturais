@@ -22,7 +22,7 @@ public class ProductDTO {
 
     private String description;
 
-    private BigDecimal price;
+    private BigDecimal pricePerUnit;
 
     private Integer stockQuantity;
 
@@ -34,7 +34,7 @@ public class ProductDTO {
         id = entity.getId();
         name = entity.getName();
         description = entity.getDescription();
-        price = entity.getPrice();
+        pricePerUnit = entity.getPricePerUnit();
         stockQuantity = entity.getStockQuantity();
         imageUrl = entity.getImageUrl();
         active = entity.getActive();
