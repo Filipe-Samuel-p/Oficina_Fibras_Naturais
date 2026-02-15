@@ -1,6 +1,7 @@
 package oficina.fibrasnaturais.controllers;
 
 
+import jakarta.validation.Valid;
 import oficina.fibrasnaturais.DTOs.user.AddressDTO;
 import oficina.fibrasnaturais.DTOs.user.UserDTO;
 import oficina.fibrasnaturais.services.UserService;
@@ -31,7 +32,7 @@ public class UserController {
 
     @PostMapping(value = "/address")
     @PreAuthorize("hasAllRoles('CLIENT')")
-    public ResponseEntity<AddressDTO> addAddress (@RequestBody AddressDTO dto, JwtAuthenticationToken token){
+    public ResponseEntity<AddressDTO> addAddress (@RequestBody @Valid AddressDTO dto, JwtAuthenticationToken token){
         dto = service.addAddress(dto, token);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -40,7 +41,7 @@ public class UserController {
 
     @PatchMapping("/address")
     @PreAuthorize("hasAllRoles('CLIENT')")
-    public ResponseEntity<AddressDTO> updateAddress (@RequestBody AddressDTO dto, JwtAuthenticationToken token){
+    public ResponseEntity<AddressDTO> updateAddress (@RequestBody @Valid AddressDTO dto, JwtAuthenticationToken token){
         AddressDTO updatedDto = service.updateAddress(dto, token);
         return ResponseEntity.ok(updatedDto);
     }
