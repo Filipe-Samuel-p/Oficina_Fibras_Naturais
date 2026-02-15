@@ -1,6 +1,7 @@
 package oficina.fibrasnaturais.controllers;
 
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import oficina.fibrasnaturais.DTOs.order.OrderCreateDTO;
 import oficina.fibrasnaturais.DTOs.order.OrderResponseDTO;
@@ -20,6 +21,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
+@Tag(name = "Gestão de Pedidos", description = "Operações relacionadas à criação, visualização e atualização de pedidos")
 @RestController
 @RequestMapping("/api/v1/orders")
 public class OrderController {
@@ -31,6 +33,7 @@ public class OrderController {
     }
 
 
+    @Operation(summary = "Criar um novo pedido", description = "Permite a um cliente criar um novo pedido (requer perfil CLIENTE)")
     @PostMapping
     @PreAuthorize("hasAllRoles('CLIENT')")
     public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody @Valid OrderCreateDTO dto, JwtAuthenticationToken token) {
@@ -39,13 +42,14 @@ public class OrderController {
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(response.getId()) // O NanoID entra aqui
+                .buildAndExpand(response.getId())
                 .toUri();
 
         return ResponseEntity.created(uri).body(response);
     }
 
 
+    @Operation(summary = "Listar meus pedidos", description = "Recupera a lista de pedidos feitos pelo usuário autenticado (requer perfil CLIENTE)")
     @GetMapping("/my-orders")
     @PreAuthorize("hasAllRoles('CLIENT')")
     public ResponseEntity<List<OrderResponseDTO>> getMyOrders(JwtAuthenticationToken token) {
@@ -53,6 +57,7 @@ public class OrderController {
     }
 
 
+    @Operation(summary = "Listar todos os pedidos", description = "Recupera uma lista paginada de todos os pedidos no sistema (requer perfil ADMIN ou COORDENADOR)")
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COODINATOR')")
     public ResponseEntity<Page<OrderResponseDTO>> getAllOrders(Pageable pageable) {
@@ -61,6 +66,7 @@ public class OrderController {
     }
 
 
+    @Operation(summary = "Obter detalhes do pedido", description = "Recupera os detalhes de um pedido específico pelo seu ID (requer perfil CLIENTE, ADMIN ou COORDENADOR)")
     @GetMapping("/{productID}")
     @PreAuthorize("hasRole('CLIENT') or hasRole('ADMIN') or hasRole('COODINATOR')")
     public ResponseEntity<OrderResponseDTO> getOrderDetails(@PathVariable String productID) {
@@ -70,6 +76,7 @@ public class OrderController {
     /**
      * Body esperado: { "status": "COMPLETED" }
      */
+    @Operation(summary = "Atualizar status do pedido", description = "Atualiza o status de um pedido específico (requer perfil ADMIN ou COORDENADOR)")
     @PatchMapping("/{productID}/status")
     @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COODINATOR')")
     public ResponseEntity<Void> updateStatus(@PathVariable String productID, @RequestBody Map<String, String> payload) {
