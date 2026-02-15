@@ -19,17 +19,18 @@ public class AdminDTO {
 
     private UUID id;
 
-    @NotBlank
+    @NotBlank(message = "Nome não pode ser vazio")
     private String name;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email não pode ser vazio")
+    @Email(message = "Email inválido")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Senha não pode ser vazia")
     @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres")
     private String password;
 
+    @NotBlank(message = "Telefone do administrador não pode ser vazio")
     private String phoneAdmin;
 
     public AdminDTO(User entity) {

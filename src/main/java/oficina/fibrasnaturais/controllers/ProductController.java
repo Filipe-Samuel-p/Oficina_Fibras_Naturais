@@ -1,6 +1,7 @@
 package oficina.fibrasnaturais.controllers;
 
 
+import jakarta.validation.Valid;
 import oficina.fibrasnaturais.DTOs.product.ProductDTO;
 import oficina.fibrasnaturais.services.ProductService;
 import org.springframework.data.domain.Page;
@@ -36,7 +37,7 @@ public class ProductController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COODINATOR')")
-    public ResponseEntity<ProductDTO> createProduct (@RequestBody ProductDTO dto){
+    public ResponseEntity<ProductDTO> createProduct (@RequestBody @Valid ProductDTO dto){
         dto = service.createProduct(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -45,7 +46,7 @@ public class ProductController {
 
     @PutMapping(value = "/{productID}")
     @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COODINATOR')")
-    public ResponseEntity<ProductDTO> updateProduct (@RequestBody ProductDTO dto, @PathVariable Long productID){
+    public ResponseEntity<ProductDTO> updateProduct (@RequestBody @Valid ProductDTO dto, @PathVariable Long productID){
 
         dto = service.updateProduct(dto,productID);
         return ResponseEntity.ok(dto);
