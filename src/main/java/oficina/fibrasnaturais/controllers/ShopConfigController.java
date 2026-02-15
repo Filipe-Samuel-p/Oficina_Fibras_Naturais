@@ -1,5 +1,7 @@
 package oficina.fibrasnaturais.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import oficina.fibrasnaturais.DTOs.shopConfig_admin.AdminDTO;
 import oficina.fibrasnaturais.DTOs.shopConfig_admin.ShopConfigDTO;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@Tag(name = "Configurações da Loja e Administração", description = "Operações para gerenciar configurações da loja e usuários administradores")
 @RestController
 @RequestMapping("/api/v1/settings")
 
@@ -25,17 +28,20 @@ public class ShopConfigController {
     }
 
 
+    @Operation(summary = "Obter configurações da loja", description = "Recupera as configurações gerais da loja")
     @GetMapping
     public ResponseEntity<ShopConfigDTO> getConfig() {
         return ResponseEntity.ok(service.getMainConfig());
     }
 
+    @Operation(summary = "Atualizar configurações da loja", description = "Atualiza as configurações gerais da loja (requer perfil ADMIN ou COORDENADOR)")
     @PutMapping
     public ResponseEntity<ShopConfigDTO> updateConfig(@RequestBody @Valid ShopConfigDTO dto) {
         return ResponseEntity.ok(service.updateConfig(dto));
     }
 
 
+    @Operation(summary = "Convidar novo administrador", description = "Registra um novo usuário com perfil de administrador através de um convite (requer perfil ADMIN ou COORDENADOR)")
     @PostMapping("/invite-admin")
     public ResponseEntity<AdminDTO> registerAdmin(@RequestBody @Valid AdminDTO dto) {
         dto = service.registerNewAdmin(dto);
@@ -46,6 +52,7 @@ public class ShopConfigController {
     }
 
 
+    @Operation(summary = "Listar todos os administradores", description = "Recupera uma lista de todos os usuários com perfil de administrador")
     @GetMapping(value = "/admins")
     public ResponseEntity<List<AdminDTO>> getAllAdmins (){
         var allAdmins = service.getAllAdmins();
