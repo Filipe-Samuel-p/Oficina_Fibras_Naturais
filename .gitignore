@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 **/src/main/**/resources/app.key
 **/src/main/resources/fibras-naturais-39a058193ef7.json
+**/src/main/resources/data-prod.sql
 
 ### STS ###
 .apt_generated
