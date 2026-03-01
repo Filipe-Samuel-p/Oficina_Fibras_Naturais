@@ -8,8 +8,8 @@ INSERT INTO tb_role(role_id, authority) VALUES
 
 INSERT INTO tb_user(id,name,email,password,phone) VALUES ('9f4216bb-ccf8-4fad-a30a-dc100855bbcc','Filipe Samuel',
                                                           'felipepires.p125@gmail.com',
-                                                        '$2a$10$YjNEj18ApFMUmdjAIzw0KuxRiSxpVKxvhTrY8P7vTC8pd63P8qiGS',
-                                                        '22998581484');
+                                                          '$2a$10$YjNEj18ApFMUmdjAIzw0KuxRiSxpVKxvhTrY8P7vTC8pd63P8qiGS',
+                                                          '22998581484');
 
 INSERT INTO tb_user(id, name, email, password, phone)
 VALUES ('e584ce82-6a72-4257-80a1-dbebdd94706f', 'Chefa Coordenadora', 'coord@fibras.com', '$2a$10$YjNEj18ApFMUmdjAIzw0KuxRiSxpVKxvhTrY8P7vTC8pd63P8qiGS', '22999998888');
