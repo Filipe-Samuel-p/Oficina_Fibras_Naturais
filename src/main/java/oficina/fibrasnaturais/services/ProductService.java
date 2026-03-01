@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
     private ProductRepository repository;
+    private ImageUploadService imageUploadService;
 
-    public ProductService(ProductRepository repository) {
+    public ProductService(ProductRepository repository, ImageUploadService imageUploadService) {
         this.repository = repository;
+        this.imageUploadService = imageUploadService;
     }
 
 
@@ -45,11 +47,10 @@ public class ProductService {
 
     }
 
-    public ProductDTO updateProduct (ProductDTO dto,Long productID){
+    public ProductDTO updateProduct(ProductDTO dto, Long productID) {
 
         var product = repository.findById(productID)
-                .orElseThrow(() -> new ResourceNotFoundException("Producto não encontrado"));
-
+                .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
 
         if (dto.getName() != null) {
             product.setName(dto.getName());
@@ -71,16 +72,20 @@ public class ProductService {
             product.setActive(dto.getActive());
         }
 
+        if (dto.getImageUrl() != null) {
+            String oldImageUrl = product.getImageUrl();
+            String newImageUrl = dto.getImageUrl();
+
+            if (oldImageUrl != null && !oldImageUrl.equals(newImageUrl)) {
+                imageUploadService.deleteImage(oldImageUrl);
+            }
+            product.setImageUrl(newImageUrl);
+        }
+
         var updatedProduct = repository.save(product);
 
         return new ProductDTO(updatedProduct);
-
-
     }
-
-    /*FUNÇAO DE ATUALIZAR IMAGEM */
-
-
 
 
     public void deleteProduct (Long productID){

@@ -3,7 +3,8 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-!**/src/main/resources/app.key
+**/src/main/**/resources/app.key
+**/src/main/resources/fibras-naturais-39a058193ef7.json
 
 ### STS ###
 .apt_generated
