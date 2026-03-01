@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>4.0.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>oficina</groupId>
 	<artifactId>fibrasnaturais</artifactId>
@@ -26,10 +26,14 @@
 		<tag/>
 		<url/>
 	</scm>
+
 	<properties>
 		<java.version>25</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring-cloud-gcp.version>7.4.4</spring-cloud-gcp.version>
+		<spring-cloud.version>2025.0.1</spring-cloud.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -66,6 +70,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa-test</artifactId>
@@ -101,7 +106,41 @@
 			<artifactId>dotenv-java</artifactId>
 			<version>3.2.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>spring-cloud-gcp-starter-storage</artifactId>
+			<version>${spring-cloud-gcp.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.google.cloud</groupId>
+				<artifactId>spring-cloud-gcp-dependencies</artifactId>
+				<version>${spring-cloud-gcp.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
 
 	<build>
 		<plugins>
