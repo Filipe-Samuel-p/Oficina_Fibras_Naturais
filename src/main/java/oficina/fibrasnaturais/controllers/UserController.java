@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import oficina.fibrasnaturais.DTOs.user.AddressDTO;
 import oficina.fibrasnaturais.DTOs.user.UserDTO;
+import oficina.fibrasnaturais.DTOs.user.UserUpdateDTO;
 import oficina.fibrasnaturais.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,6 +34,8 @@ public class UserController {
         return ResponseEntity.ok(userDTO);
     }
 
+
+
     @Operation(summary = "Adicionar endereço", description = "Adiciona um novo endereço ao perfil do usuário autenticado (requer perfil CLIENTE)")
     @PostMapping(value = "/address")
     @PreAuthorize("hasAllRoles('CLIENT')")
@@ -48,6 +51,14 @@ public class UserController {
     @PreAuthorize("hasAllRoles('CLIENT')")
     public ResponseEntity<AddressDTO> updateAddress (@RequestBody @Valid AddressDTO dto, JwtAuthenticationToken token){
         AddressDTO updatedDto = service.updateAddress(dto, token);
+        return ResponseEntity.ok(updatedDto);
+    }
+
+    @Operation(summary = "Atualizar informações do usuário", description = "Atualiza informações do perfil do usuário autenticado (requer perfil CLIENTE)")
+    @PatchMapping
+    @PreAuthorize("hasAllRoles('CLIENT')")
+    public ResponseEntity<UserDTO> updateUser (@RequestBody @Valid UserUpdateDTO dto, JwtAuthenticationToken token){
+        UserDTO updatedDto = service.updateUser(dto, token);
         return ResponseEntity.ok(updatedDto);
     }
 }

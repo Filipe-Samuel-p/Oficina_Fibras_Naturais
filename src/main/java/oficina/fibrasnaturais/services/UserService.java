@@ -2,11 +2,14 @@ package oficina.fibrasnaturais.services;
 
 import oficina.fibrasnaturais.DTOs.user.AddressDTO;
 import oficina.fibrasnaturais.DTOs.user.UserDTO;
+import oficina.fibrasnaturais.DTOs.user.UserUpdateDTO;
 import oficina.fibrasnaturais.entities.Address;
+import oficina.fibrasnaturais.entities.User;
 import oficina.fibrasnaturais.exceptions.ResourceNotFoundException;
 import oficina.fibrasnaturais.repositories.AddressRepository;
 import oficina.fibrasnaturais.repositories.UserRepository;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +20,13 @@ public class UserService {
 
     private UserRepository repository;
     private AddressRepository addressRepository;
+    private BCryptPasswordEncoder passwordEncoder;
 
 
-    public UserService(UserRepository repository, AddressRepository addressRepository) {
+    public UserService(UserRepository repository, AddressRepository addressRepository, BCryptPasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.addressRepository = addressRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserDTO getUserProfile (JwtAuthenticationToken token){
@@ -103,4 +108,22 @@ public class UserService {
         return new AddressDTO(updatedAddress);
     }
 
+    public UserDTO updateUser(UserUpdateDTO dto, JwtAuthenticationToken token) {
+        var userID = UUID.fromString(token.getName());
+        var user = repository.findById(userID)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+
+        if (dto.getName() != null) {
+            user.setName(dto.getName());
+        }
+        if (dto.getPhone() != null) {
+            user.setPhone(dto.getPhone());
+        }
+        if (dto.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+
+        User updatedUser = repository.save(user);
+        return new UserDTO(updatedUser);
+    }
 }
