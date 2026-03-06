@@ -43,7 +43,7 @@ public class AuthService {
         }
 
         var now = Instant.now();
-        var expiresIn = 600L;
+        var expiresIn = 1800L;
         var roles = user.get().getRoles()
                 .stream()
                 .map(role -> role.getAuthority().toString())

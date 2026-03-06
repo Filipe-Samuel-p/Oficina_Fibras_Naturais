@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +35,12 @@ public class UserDTO {
     private String password;
 
     @NotBlank(message = "Telefone não pode ser vazio")
+    @Pattern(
+            regexp = "\\(\\d{2}\\) \\d{5}-\\d{4}",
+            message = "O telefone precisa usar o formato (XX) XXXXX-XXXX"
+    )
     private String phone;
+
     @Valid
     private AddressDTO address;
 
