@@ -49,6 +49,7 @@ public class CoordinatorService {
 
     }
 
+
     public void updateAdminStatus (UUID adminId){
 
         var targetUser = userRepository.findById(adminId)
