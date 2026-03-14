@@ -21,6 +21,7 @@ jobs:
         run: |
           echo "${{secrets.JWT_PRIVATE_KEY }}" > src/main/resources/app.key
           echo "${{secrets.JWT_PUBLIC_KEY }}" > src/main/resources/app.pub
+          echo "${{ secrets.DATA_PROD_SQL }}" > src/main/resources/data-prod.sql
 
       - name: Autenticação no Google Cloud
         uses: google-github-actions/auth@v2
