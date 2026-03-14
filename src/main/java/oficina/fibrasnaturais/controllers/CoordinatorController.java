@@ -6,17 +6,13 @@ import oficina.fibrasnaturais.services.CoordinatorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @Tag(name = "Gestão de Coordenadores", description = "Operações exclusivas para coordenadores (ex: gerenciar administradores)")
 @RestController
 @RequestMapping("/api/v1/coordinator")
-
 @PreAuthorize("hasRole('COORDINATOR')")
 public class CoordinatorController {
 
@@ -35,5 +31,14 @@ public class CoordinatorController {
         service.deleteAdmin(adminID, currentUserId);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Atualizar Status do administrador", description = "Permite transformar um administrador em um coordenador")
+    @PatchMapping("/admins/{adminId}")
+    public ResponseEntity<Void> updateAdminStatus (@PathVariable UUID adminId){
+
+        service.updateAdminStatus(adminId);
+        return ResponseEntity.noContent().build();
+
     }
 }

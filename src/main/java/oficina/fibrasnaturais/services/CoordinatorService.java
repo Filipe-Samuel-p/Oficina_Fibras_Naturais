@@ -1,9 +1,12 @@
 package oficina.fibrasnaturais.services;
 
 import jakarta.transaction.Transactional;
+import oficina.fibrasnaturais.enums.RoleName;
 import oficina.fibrasnaturais.exceptions.ConflictException;
 import oficina.fibrasnaturais.exceptions.ResourceNotFoundException;
+import oficina.fibrasnaturais.repositories.RoleRepository;
 import oficina.fibrasnaturais.repositories.UserRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -12,9 +15,11 @@ import java.util.UUID;
 public class CoordinatorService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public CoordinatorService(UserRepository userRepository) {
+    public CoordinatorService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Transactional
@@ -35,6 +40,32 @@ public class CoordinatorService {
             throw new ConflictException("Uma coordenadora não pode deletar outra coordenadora.");
         }
 
-        userRepository.delete(targetUser);
+        try{
+            userRepository.delete(targetUser);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("Falha de integridade referencial");
+        }
+
+    }
+
+    public void updateAdminStatus (UUID adminId){
+
+        var targetUser = userRepository.findById(adminId)
+                .orElseThrow(() -> new ResourceNotFoundException("Administrador não encontrado."));
+
+        var isTargetAdmin = targetUser.getRoles().stream()
+                .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
+
+        if (isTargetAdmin) {
+            throw new ConflictException("O usuário não é um administrador");
+        }
+
+        var roleCoordenatior = roleRepository.findByAuthority(RoleName.ROLE_COORDINATOR);
+
+        targetUser.getRoles().add(roleCoordenatior);
+
+        targetUser = userRepository.save(targetUser);
+
     }
 }
