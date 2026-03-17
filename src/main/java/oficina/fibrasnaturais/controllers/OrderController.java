@@ -59,7 +59,7 @@ public class OrderController {
 
     @Operation(summary = "Listar todos os pedidos", description = "Recupera uma lista paginada de todos os pedidos no sistema (requer perfil ADMIN ou COORDENADOR)")
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COODINATOR')")
+    @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COORDINATOR')")
     public ResponseEntity<Page<OrderResponseDTO>> getAllOrders(Pageable pageable) {
                 var allOrders = orderService.getAllOrders(pageable);
                 return ResponseEntity.ok(allOrders);
@@ -67,10 +67,10 @@ public class OrderController {
 
 
     @Operation(summary = "Obter detalhes do pedido", description = "Recupera os detalhes de um pedido específico pelo seu ID (requer perfil CLIENTE, ADMIN ou COORDENADOR)")
-    @GetMapping("/{productID}")
-    @PreAuthorize("hasRole('CLIENT') or hasRole('ADMIN') or hasRole('COODINATOR')")
-    public ResponseEntity<OrderResponseDTO> getOrderDetails(@PathVariable String productID) {
-        return ResponseEntity.ok(orderService.getOrderDetails(productID));
+    @GetMapping("/{orderId}")
+    @PreAuthorize("hasRole('CLIENT') or hasRole('ADMIN') or hasRole('COORDINATOR')")
+    public ResponseEntity<OrderResponseDTO> getOrderDetails(@PathVariable String orderId) {
+        return ResponseEntity.ok(orderService.getOrderDetails(orderId));
     }
 
     /**
@@ -78,7 +78,7 @@ public class OrderController {
      */
     @Operation(summary = "Atualizar status do pedido", description = "Atualiza o status de um pedido específico (requer perfil ADMIN ou COORDENADOR)")
     @PatchMapping("/{productID}/status")
-    @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COODINATOR')")
+    @PreAuthorize("hasAnyRole('ADMIN') or hasRole('COORDINATOR')")
     public ResponseEntity<Void> updateStatus(@PathVariable String productID, @RequestBody Map<String, String> payload) {
         var statusStr = payload.get("status");
         try {

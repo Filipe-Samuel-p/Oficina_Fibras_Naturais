@@ -9,6 +9,7 @@ import oficina.fibrasnaturais.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * DTO de saída com o resumo completo do pedido gerado.
@@ -32,4 +33,5 @@ public class OrderResponseDTO {
     private String addressSnapshot;
     private List<OrderItemResponseDTO> items;
     private String whatsappLink;
+    private UUID userID;
 }

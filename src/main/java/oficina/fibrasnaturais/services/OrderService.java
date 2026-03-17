@@ -193,7 +193,8 @@ public class OrderService {
                 order.getTotalValue(),
                 order.getAddressSnapshot(),
                 itemsResponse,
-                waLink
+                waLink,
+                order.getUser().getId()
         );
     }
 }
